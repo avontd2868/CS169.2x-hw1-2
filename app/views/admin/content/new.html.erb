@@ -5,7 +5,7 @@
 <div class=''>
   <% if current_user.admin? %>
      Merge articles
-     <form name="merge_with" action=<%="/admin/content/merge/" + @article.id.to_s %> method="post" %>
+     <form name="merge" action=<%="/admin/content/merge/" + @article.id.to_s %> method="post" %>
       Article ID : <%= text_field 'merge_article', 'value' %>
       <br>
      <input name="merge_with" type="submit" value="Merge Articles"%>
