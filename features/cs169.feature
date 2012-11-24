@@ -10,8 +10,8 @@ Feature: An admin can merge articles
   Scenario: An admin merge two articles
     Given I am on the new article page
     Then I should see "New article"
-    And I should see button "Merge With This Article"
+    And I should see button "Merge Articles"
     When I fill in "merge_with" with "001"
-    And I press "Merge With This Article"
+    And I press "Merge Articles"
     Then I should be on the new article page
     And I should see "Title can't be blank"
