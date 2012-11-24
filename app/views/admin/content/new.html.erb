@@ -6,7 +6,7 @@
   <% if current_user.admin? %>
      Merge articles
      <form name="merge" action=<%="/admin/content/merge/" + @article.id.to_s %> method="post" %>
-      Article ID : <%= text_field 'merge_with', 'value' %>
+      Article ID : <%= text_field_tag 'merge_with' %>
       <br>
      <input type="submit" value="Merge Articles"%>
   <% end %>
