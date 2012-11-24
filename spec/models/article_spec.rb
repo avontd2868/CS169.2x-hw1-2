@@ -21,6 +21,49 @@ describe Article do
     end
   end
 
+  it "test merge body is the same as body of the two articles" do
+    article1 = Article.new(:id => 1, :author => 'toto1', :title => 'Article 1', :body => 'corps article 1')
+    article2 = Article.new(:id => 2, :author => 'toto2', :title => 'Article 2', :body => 'corps article 2')
+    article1.save; article2.save
+    article1.merge_with(article2)
+    article1.body.should include 'corps article 1'
+    article1.body.should include article2.body
+  end
+
+  it "test merged article has one author" do
+    article1 = Article.new(:id => 1, :author => 'toto1', :title => 'Article 1', :body => 'corps article 1')
+    article2 = Article.new(:id => 2, :author => 'toto2', :title => 'Article 2', :body => 'corps article 2')
+    article1.save; article2.save
+    article1.merge_with(article2)
+    article1.author.should == 'toto1' 
+  end
+
+  it "test merged article has comments of the two articles" do
+    article1 = Article.new(:id => 1, :author => 'toto1', :title => 'Article 1', :body => 'corps article 1')
+    article2 = Article.new(:id => 2, :author => 'toto2', :title => 'Article 2', :body => 'corps article 2')
+    article1.save; article2.save
+    article1_comment = Factory(:comment, :article => article1)
+    article2_comment = Factory(:comment, :article => article2)
+    article1.merge_with(article2)
+    article1.comments.should include article2_comment
+  end
+
+  it "test merged article title is the same as the first article" do
+    article1 = Article.new(:id => 1, :author => 'toto1', :title => 'Article 1', :body => 'corps article 1')
+    article2 = Article.new(:id => 2, :author => 'toto2', :title => 'Article 2', :body => 'corps article 2')
+    article1.save; article2.save
+    article1.merge_with(article2)
+    article1.title.should == 'Article 1'
+  end
+
+  it "test second article merged is destroyes" do
+    article1 = Article.new(:id => 1, :author => 'toto1', :title => 'Article 1', :body => 'corps article 1')
+    article2 = Article.new(:id => 2, :author => 'toto2', :title => 'Article 2', :body => 'corps article 2')
+    article1.save; article2.save
+    article1.merge_with(article2)
+    expect(Article.find_by_id(article2)).to be_nil
+  end
+
   it "test_content_fields" do
     a = Article.new
     assert_equal [:body, :extended], a.content_fields
@@ -631,4 +674,3 @@ describe Article do
 
   end
 end
-
