@@ -129,7 +129,7 @@ class Article < Content
       c.article_id = self.id
       self.comments << c
     end
-    article2.destroy
+    Article.find_by_id(article2).destroy
     self.save
   end
 
