@@ -41,7 +41,7 @@ class Admin::ContentController < Admin::BaseController
      @article1 = Article.find_by_id(params[:id])
      @article2 = Article.find_by_id(params[:merge_article][:value])
      @article1.merge_with(@article2)
-
+     redirect_to("/admin/content")
   end
 
   def destroy
